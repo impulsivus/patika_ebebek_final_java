@@ -5,46 +5,63 @@ import static java.lang.System.exit;
 
 public class Store {
 
-    private int mainLevel = 0;
-    private int subLevel = 0;
+    private int mainLevel = -1;
+    private int subLevel = -1;
     private Scanner s = new Scanner(System.in);
 
     private final ArrayList<Notebook> notebooks = new ArrayList<>();
     private final ArrayList<Cellphone> cellphones = new ArrayList<>();
 
-    private final ArrayList<Brand> brandStore = new utils().populateAndReturnBrands();
+    private final utils u = new utils();
+    private final ArrayList<Brand> brandStore = u.populateAndReturnBrands();
+
+    private static final String[] mainMenuItems =
+            {
+                    "Notebook Menu",
+                    "Cellphone Menu",
+                    "View Registered Brands",
+                    "Exit"
+            };
+    private static final String[] notebookMenuItems =
+            {
+                    "Add Notebook",
+                    "List All Notebooks",
+                    "Filter Notebooks by Brand",
+                    "Get Notebook by ID",
+                    "Delete Notebook",
+                    "Back",
+                    "Exit"
+            };
+    private static final String[] cellphoneMenuItems =
+            {
+                    "Add Cellphone",
+                    "List All Cellphones",
+                    "Filter Cellphones by Brand",
+                    "Get Cellphone by ID",
+                    "Delete Cellphone",
+                    "Back",
+                    "Exit"
+            };
 
     public void printMainMenu() {
         System.out.println("Welcome to PatikaStore!\n");
         System.out.println("Please pick an action:");
-        System.out.println("1 - Notebook menu");
-        System.out.println("2 - Cellphone menu");
-        System.out.println("3 - View registered brands");
-        System.out.println("4 - Exit");
+        for(int i = 0; i < mainMenuItems.length; i++)
+            System.out.println(i+" - "+mainMenuItems[i]);
     }
 
     public void printNotebookMenu() {
         System.out.println("Welcome to PatikaStore!\n");
         System.out.println("Notebook menu\n");
-        System.out.println("1 - Add notebook");
-        System.out.println("2 - List all notebooks");
-        System.out.println("3 - List notebooks by brand");
-        System.out.println("4 - Get notebook by ID");
-        System.out.println("5 - Delete notebook");
-        System.out.println("6 - Back");
-        System.out.println("7 - Exit");
+        for(int i = 0; i < notebookMenuItems.length; i++)
+            System.out.println(i+" - "+notebookMenuItems[i]);
     }
 
     public void printCellphoneMenu() {
         System.out.println("Welcome to PatikaStore!\n");
         System.out.println("Cellphone menu\n");
-        System.out.println("1 - Add cellphone");
-        System.out.println("2 - List all cellphones");
-        System.out.println("3 - List cellphones by brand");
-        System.out.println("4 - Get cellphone by ID");
-        System.out.println("5 - Delete cellphone");
-        System.out.println("6 - Back");
-        System.out.println("7 - Exit");
+        for(int i = 0; i < cellphoneMenuItems.length; i++)
+            System.out.println(i+" - "+cellphoneMenuItems[i]);
     }
 
     public void addNotebookMenu() {
@@ -55,6 +72,7 @@ public class Store {
         double discount = s.nextDouble();
         System.out.println("Product Name:");
         String productName = s.next();
+        u.printBrandList();
         System.out.println("Brand ID:");
         int brandID = s.nextInt();
         System.out.println("Storage (GB):");
@@ -65,9 +83,9 @@ public class Store {
         int screenSize = s.nextInt();
 
         notebooks.add(new Notebook(notebooks.size(),unitPrice,discount,productName,brandStore.get(brandID),storage,ram,screenSize));
-        System.out.println("Notebook added.\n Press 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("Notebook added.\n Press 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -81,9 +99,9 @@ public class Store {
                     +n.getBrand().getBrandId()+"\t"+n.getBrand().getBrandName()+"\t"+n.getStorage()+"\t"+n.getRam()+"\t"
                     +n.getScreenSize());
         }
-        System.out.println("\n Press 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\n Press 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -97,9 +115,9 @@ public class Store {
                         +n.getBrand().getBrandId()+"\t"+n.getBrand().getBrandName()+"\t"+n.getStorage()+"\t"+n.getRam()+"\t"
                         +n.getScreenSize());
         }
-        System.out.println("\n Press 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\n Press 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -113,9 +131,9 @@ public class Store {
                         +n.getBrand().getBrandId()+"\t"+n.getBrand().getBrandName()+"\t"+n.getStorage()+"\t"+n.getRam()+"\t"
                         +n.getScreenSize());
         }
-        System.out.println("\nPress 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\nPress 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -130,9 +148,9 @@ public class Store {
         } finally {
             System.out.println("Item deleted.");
         }
-        System.out.println("\nPress 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\nPress 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -145,6 +163,7 @@ public class Store {
         double discount = s.nextDouble();
         System.out.println("Product Name:");
         String productName = s.next();
+        u.printBrandList();
         System.out.println("Brand ID:");
         int brandID = s.nextInt();
         System.out.println("Storage (GB):");
@@ -157,9 +176,9 @@ public class Store {
         String color = s.next();
 
         cellphones.add(new Cellphone(cellphones.size(),unitPrice,discount,productName,brandStore.get(brandID),storage,ram,battery,color));
-        System.out.println("Notebook added.\n Press 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("Cellphone added.\n Press 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -173,9 +192,9 @@ public class Store {
                     +c.getBrand().getBrandId()+"\t"+c.getBrand().getBrandName()+"\t"+c.getStorage()+"\t"+c.getRam()+"\t"
                     +c.getBattery()+"\t"+c.getColor());
         }
-        System.out.println("\n Press 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\n Press 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -189,9 +208,9 @@ public class Store {
                         +c.getBrand().getBrandId()+"\t"+c.getBrand().getBrandName()+"\t"+c.getStorage()+"\t"+c.getRam()+"\t"
                         +c.getBattery()+"\t"+c.getColor());
         }
-        System.out.println("\n Press 0 to go back.");
+        System.out.println("\n Press 9 to go back.");
         if(s.nextInt() == 0) {
-            subLevel = 0;
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -205,9 +224,9 @@ public class Store {
                         +c.getBrand().getBrandId()+"\t"+c.getBrand().getBrandName()+"\t"+c.getStorage()+"\t"+c.getRam()+"\t"
                         +c.getBattery()+"\t"+c.getColor());
         }
-        System.out.println("\nPress 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\nPress 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -222,9 +241,9 @@ public class Store {
         } finally {
             System.out.println("Item deleted.");
         }
-        System.out.println("\nPress 0 to go back.");
-        if(s.nextInt() == 0) {
-            subLevel = 0;
+        System.out.println("\nPress 9 to go back.");
+        if(s.nextInt() == 9) {
+            subLevel = -1;
         } else {
             System.out.println("Invalid input.");
         }
@@ -232,14 +251,20 @@ public class Store {
 
     public void run() {
         while (true) {
-            if (mainLevel == 0) {
-                subLevel = 0;
+            if (mainLevel == -1) {
+                subLevel = -1;
                 printMainMenu();
                 mainLevel = s.nextInt();
-            } else if (mainLevel == 1) {
-                if (subLevel == 0) {
+            } else if (mainLevel == 0) {
+                if (subLevel == -1) {
                     printNotebookMenu();
-                    switch (s.nextInt()) {
+                    int userInput = s.nextInt();
+                    if(notebookMenuItems[userInput] == null) {
+                        System.out.println("Invalid input.");
+                    } else {
+                        subLevel = userInput;
+                    }
+                    /*switch (s.nextInt()) {
                         case 1:
                             subLevel = 1;
                             break;
@@ -264,94 +289,76 @@ public class Store {
                         default:
                             System.out.println("Invalid input.");
                             break;
-                    }
+                    }*/
                 }
-                if(subLevel == 1) {
+                if(subLevel == 0) {
                     addNotebookMenu();
                 }
-                if(subLevel == 2) {
+                if(subLevel == 1) {
                     listNotebooksMenu();
                 }
-                if(subLevel == 3) {
+                if(subLevel == 2) {
+                    u.printBrandList();
                     System.out.println("Brand ID:");
                     listNotebooksByBrandMenu(s.nextInt());
                 }
-                if(subLevel == 4) {
+                if(subLevel == 3) {
                     System.out.println("Notebook ID:");
                     listNotebookByIDMenu(s.nextInt());
                 }
-                if(subLevel == 5) {
+                if(subLevel == 4) {
                     System.out.println("Notebook ID:");
                     deleteNotebook(s.nextInt());
                 }
-                if(subLevel == 6) {
-                    subLevel = 0;
-                    mainLevel = 0;
+                if(subLevel == 5) {
+                    subLevel = -1;
+                    mainLevel = -1;
                 }
-                if(subLevel == 7) {
+                if(subLevel == 6) {
                     exit(0);
                 }
-            } else if (mainLevel == 2) {
-                if (subLevel == 0) {
+            } else if (mainLevel == 1) {
+                if (subLevel == -1) {
                     printCellphoneMenu();
-                    switch (s.nextInt()) {
-                        case 1:
-                            subLevel = 1;
-                            break;
-                        case 2:
-                            subLevel = 2;
-                            break;
-                        case 3:
-                            subLevel = 3;
-                            break;
-                        case 4:
-                            subLevel = 4;
-                            break;
-                        case 5:
-                            subLevel = 5;
-                            break;
-                        case 6:
-                            subLevel = 6;
-                            break;
-                        case 7:
-                            subLevel = 7;
-                            break;
-                        default:
-                            System.out.println("Invalid input.");
-                            break;
+                    int userInput = s.nextInt();
+                    if(cellphoneMenuItems[userInput] == null) {
+                        System.out.println("Invalid input.");
+                    } else {
+                        subLevel = userInput;
                     }
                 }
-                if(subLevel == 1) {
+                if(subLevel == 0) {
                     addCellphoneMenu();
                 }
-                if(subLevel == 2) {
+                if(subLevel == 1) {
                     listCellphonesMenu();
                 }
-                if(subLevel == 3) {
+                if(subLevel == 2) {
+                    u.printBrandList();
                     System.out.println("Brand ID:");
                     listCellphonesByBrand(s.nextInt());
                 }
-                if(subLevel == 4) {
+                if(subLevel == 3) {
                     System.out.println("Cellphone ID:");
                     listCellphoneById(s.nextInt());
                 }
-                if(subLevel == 5) {
+                if(subLevel == 4) {
                     System.out.println("Cellphone ID:");
                     deleteCellphone(s.nextInt());
                 }
-                if(subLevel == 6) {
-                    subLevel = 0;
-                    mainLevel = 0;
+                if(subLevel == 5) {
+                    subLevel = -1;
+                    mainLevel = -1;
                 }
-                if(subLevel == 7) {
+                if(subLevel == 6) {
                     exit(0);
                 }
-            } else if (mainLevel == 3) {
+            } else if (mainLevel == 2) {
                 new utils().printBrandList();
-                System.out.println("\nPress 0 to go back.");
-                if(s.nextInt() == 0) {
-                    subLevel = 0;
-                    mainLevel = 0;
+                System.out.println("\nPress 9 to go back.");
+                if(s.nextInt() == 9) {
+                    subLevel = -1;
+                    mainLevel = -1;
                 } else {
                     System.out.println("Invalid input.");
                 }
